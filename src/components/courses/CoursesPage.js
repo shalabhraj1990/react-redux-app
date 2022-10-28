@@ -54,6 +54,15 @@ class CoursesPage extends React.Component {
   //   //3rd way
   //   this.props.actions.createCourse(this.state.course);
   // };
+  handleDeleteCourse = async (course) => {
+    toast.success("Course deleted");
+    try {
+      await this.props.actions.deleteCourse(course);
+    } catch (error) {
+      toast.error("Delete failed. " + error.message, { autoClose: false });
+    }
+  };
+
   render() {
     return (
       <>
@@ -72,7 +81,11 @@ class CoursesPage extends React.Component {
             </button>
           </>
         )}
-        <CourseList courses={this.props.courses} />)
+        <CourseList
+          onDeleteClick={this.handleDeleteCourse}
+          courses={this.props.courses}
+        />
+        )
       </>
     );
   }
@@ -111,6 +124,7 @@ function mapDispatchToProps(dispatch) {
     actions: {
       courses: bindActionCreators(courseActions, dispatch),
       authors: bindActionCreators(authorActions, dispatch),
+      deleteCourse: bindActionCreators(courseActions.deleteCourse, dispatch),
     },
   };
 }
