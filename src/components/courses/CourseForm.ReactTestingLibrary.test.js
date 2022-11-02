@@ -9,7 +9,7 @@ function renderCourseForm(args) {
     saving: false,
     errors: {},
     onSave: () => {},
-    onChange: () => {}
+    onChange: () => {},
   };
 
   const props = { ...defaultProps, ...args };
